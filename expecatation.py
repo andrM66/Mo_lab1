@@ -1,6 +1,9 @@
 import numpy as np
 
 
+N = 200
+
+
 def make_A_matrix(B: np.ndarray) -> np.ndarray:
     '''
     Zалупа
@@ -47,13 +50,28 @@ def gen_norm_vector(A: np.ndarray, M: np.ndarray) -> np.ndarray:
     return X
 
 
+def gen_sample(volume: int, M: np.ndarray, B: np.ndarray) -> np.ndarray:
+    '''
+
+    :param volume:
+    :param M:
+    :param B:
+    :return:
+    '''
+    A = make_A_matrix(B)
+    X = []
+    for i in range(volume):
+        X.append(gen_norm_vector(A, M))
+    result = np.vstack((X[0], X[1]))
+    for i in range(2, volume):
+        result = np.vstack((result, X[i]))
+    return  result
 
 if __name__ == '__main__':
     M1 = np.array([2, 3])
     M2 = np.array([6, 5])
     B = np.array([[1.5, 0.9], [0.9, 1.5]])
-    A = make_A_matrix(B)
-    print(A)
-    X = gen_norm_vector(A, M1)
-    print(X)
-    np.random.randn()
+    X1 = gen_sample(N, M1, B)
+    print(X1)
+
+
