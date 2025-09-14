@@ -14,6 +14,18 @@ def find_mahalo_dist(M0:np.ndarray, M1: np.ndarray, B: np.ndarray) -> np.float32
     return rho
 
 
+def find_mahalo_dist2(M0:np.ndarray, M1: np.ndarray, B0: np.ndarray, B1: np.ndarray) -> np.float32:
+    """
+    :param M0:
+    :param M1:
+    :param B:
+    :return:
+    """
+    rho = np.dot((M0 - M1).T, np.linalg.inv((B0 + B1)/2))
+    rho = np.dot(rho, (M1-M0))
+    return rho
+
+
 def find_baha_dist(M0: np.ndarray, M1: np.ndarray, B0: np.ndarray, B1: np.ndarray) -> np.float32:
     """
     :param M0:
@@ -40,3 +52,4 @@ if __name__ == "__main__":
     B4 = np.array([[2.0, 1.8], [1.8, 2.0]])
     B5 = np.array([[1.5, -1.2], [-1.2, 1.0]])
     print(find_baha_dist(M3, M4, B3, B4))
+    print(find_mahalo_dist2(M3, M4, B3, B4))
