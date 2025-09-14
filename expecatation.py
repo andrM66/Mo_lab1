@@ -1,17 +1,17 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
 
 N = 200
 
 
 def make_A_matrix(B: np.ndarray) -> np.ndarray:
-    '''
-    Zалупа
-    :param M:
-    :param B:
-    :return:
-    '''
-    A = np.zeros_like(B)
+    """
+    Расчет матрицы A
+    :param B: ковариационная матрица
+    :return: Матрицу A
+    """
+    A = np.zeros_like(B, dtype=np.float32)
     a,b = A.shape # a -- строчки b -- стобцы
     for i in range(a):
         for j in range(b):
@@ -35,28 +35,28 @@ def make_A_matrix(B: np.ndarray) -> np.ndarray:
 
 
 def gen_norm_vector(A: np.ndarray, M: np.ndarray) -> np.ndarray:
-    '''
-
+    """
+    Генерация случайного вектора на основе полученной матрицы A
     :param A:
-    :param M:
-    :return:
-    '''
+    :param M: вектор мат ожиданий
+    :return: Случайный вектор
+    """
     a, b = A.shape
-    E = np.zeros(a)
+    E = np.zeros(a, dtype=np.float32)
     for i in range(a):
-        tmp = np.random.normal(0, 1, 1)
-        E[i] = tmp[0]
-    X = A.dot(E) + M.transpose()
+        E = np.random.normal(0, 1, 2)
+    X = A.dot(E) + M
     return X
 
 
-def gen_sample(volume: int, M: np.ndarray, B: np.ndarray) -> np.ndarray:
+def gen_sample(volume: int, M: np.ndarray, B: np.ndarray, filename: str = None):
     '''
-
-    :param volume:
-    :param M:
-    :param B:
-    :return:
+    На основе входных данных генерирует выборку из N случайных векторов
+    :param volume: объем выборки
+    :param M: вектор мат ожиданий
+    :param B: ковариационная матрица
+    :param filename: файл для сохранения выборки
+    :return: None
     '''
     A = make_A_matrix(B)
     X = []
@@ -65,13 +65,7 @@ def gen_sample(volume: int, M: np.ndarray, B: np.ndarray) -> np.ndarray:
     result = np.vstack((X[0], X[1]))
     for i in range(2, volume):
         result = np.vstack((result, X[i]))
-    return  result
-
-if __name__ == '__main__':
-    M1 = np.array([2, 3])
-    M2 = np.array([6, 5])
-    B = np.array([[1.5, 0.9], [0.9, 1.5]])
-    X1 = gen_sample(N, M1, B)
-    print(X1)
+    if filename is not None:
+        np.save(filename, result)
 
 
