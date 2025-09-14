@@ -18,8 +18,7 @@ def find_params(X: np.ndarray, N: int) -> tuple:
     B = np.zeros((b, b) , dtype=np.float32)
     for i in range(b):
         for j in range(b):
-            tmp_x = X[:, i] * X[: , j]
-            tmp_x -= M[i] * M[j]
+            tmp_x = (X[:, i] - M[i]) * (X[: , j]- M[j])
             tmp_x = np.sum(tmp_x) / N
             B[i, j] = tmp_x
     return B, M
