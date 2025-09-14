@@ -1,5 +1,5 @@
 import numpy as np
-
+from numpy.conftest import dtype
 
 N = 200
 
@@ -41,9 +41,7 @@ def gen_norm_vector(A: np.ndarray, M: np.ndarray) -> np.ndarray:
     :return: Случайный вектор
     """
     a, b = A.shape
-    E = np.zeros(a, dtype=np.float32)
-    for i in range(a):
-        E = np.random.normal(0, 1, 2)
+    E = np.random.normal(0, 1, 2)
     X = A.dot(E) + M
     return X
 
