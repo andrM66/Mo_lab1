@@ -9,7 +9,7 @@ def find_mahalo_dist(M0:np.ndarray, M1: np.ndarray, B: np.ndarray) -> np.float32
     :param B:
     :return:
     """
-    rho = np.dot((M0 - M1).T, np.linalg.inv(B))
+    rho = np.dot((M1 - M0).T, np.linalg.inv(B))
     rho = np.dot(rho, (M1-M0))
     return rho
 
@@ -21,7 +21,7 @@ def find_mahalo_dist2(M0:np.ndarray, M1: np.ndarray, B0: np.ndarray, B1: np.ndar
     :param B:
     :return:
     """
-    rho = np.dot((M0 - M1).T, np.linalg.inv((B0 + B1)/2))
+    rho = np.dot((M1 - M0).T, np.linalg.inv((B0 + B1)/2))
     rho = np.dot(rho, (M1-M0))
     return rho
 
