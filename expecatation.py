@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def gen_A_matrix(B: np.ndarray) -> np.ndarray:
+def make_A_matrix(B: np.ndarray) -> np.ndarray:
     '''
     Zалупа
     :param M:
@@ -43,16 +43,17 @@ def gen_norm_vector(A: np.ndarray, M: np.ndarray) -> np.ndarray:
     for i in range(a):
         tmp = np.random.normal(0, 1, 1)
         E[i] = tmp[0]
-    E = E.transpose()
     X = A.dot(E) + M.transpose()
     return X
 
 
 
 if __name__ == '__main__':
-    M = np.array([1, 1, 1])
-    B = np.array([[1,2, 3], [3,4, 2], [2,1,4]])
-    A = gen_A_matrix(B)
+    M1 = np.array([2, 3])
+    M2 = np.array([6, 5])
+    B = np.array([[1.5, 0.9], [0.9, 1.5]])
+    A = make_A_matrix(B)
     print(A)
-    X = gen_norm_vector(A, M)
+    X = gen_norm_vector(A, M1)
     print(X)
+    np.random.randn()
