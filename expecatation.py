@@ -1,5 +1,4 @@
 import numpy as np
-import matplotlib.pyplot as plt
 
 
 N = 200
@@ -12,7 +11,7 @@ def make_A_matrix(B: np.ndarray) -> np.ndarray:
     :return: Матрицу A
     """
     A = np.zeros_like(B, dtype=np.float32)
-    a,b = A.shape # a -- строчки b -- стобцы
+    a,b = A.shape
     for i in range(a):
         for j in range(b):
             if i == j:
@@ -50,14 +49,14 @@ def gen_norm_vector(A: np.ndarray, M: np.ndarray) -> np.ndarray:
 
 
 def gen_sample(volume: int, M: np.ndarray, B: np.ndarray, filename: str = None):
-    '''
+    """
     На основе входных данных генерирует выборку из N случайных векторов
     :param volume: объем выборки
     :param M: вектор мат ожиданий
     :param B: ковариационная матрица
     :param filename: файл для сохранения выборки
     :return: None
-    '''
+    """
     A = make_A_matrix(B)
     X = []
     for i in range(volume):
